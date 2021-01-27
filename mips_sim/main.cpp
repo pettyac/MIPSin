@@ -17,7 +17,7 @@ int main()
 	char input[MAX_BUF];
 	std::string pseudo_inst;
     std::string op;
-	Inst * inst;
+	int inst;
 
     while(1)
 	{
@@ -31,7 +31,7 @@ int main()
 		}
 		
 		m.parse_input(input, &MAX_BUF);
-
+        inst = m.fetch(m.PC());
     /*    
  
         std::cout << *(inst) << std::endl;     
@@ -56,11 +56,6 @@ int main()
 				}
 			}
 		}
-        for (int i = 0; i < 32; ++i)
-        {
-            std::cout << m.reg[i] << std::endl;
-            
-        }
     */    
     }
     

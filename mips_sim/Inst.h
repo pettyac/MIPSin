@@ -1,3 +1,19 @@
+/********************************************************************
+
+File: Inst.h
+Author: Adam Petty
+
+Data structure and parent-class of R and I format MIPS instructions:
+
+format      - set as either 'R', 'I', or 'J' from the appropriate subclass
+pseudo_code - MIPS instruction as written with excess whitespace removed,
+              i.e., "add $s0, $s0, $s1"
+machine_code- 32 bit representation of the instruction
+
+
+********************************************************************/
+
+
 #ifndef INST_H
 #define INST_H
 
@@ -7,27 +23,24 @@ class Inst
 {
 public:
     
-    Inst(std::string, std::string, char);
+    Inst(std::string, char);
     virtual ~Inst() {}
     
-    virtual void dec_form() {}
 
     void set_machine_code(std::string);
     
     /* output for instruction members */
-    char FORMAT()       { return format; }
-    std::string PSEUDO()        { return pseudo_code; }
-    std::bitset<32> MACHINE()   { return mach_code; } 
-    std::string INPUT() { return user_input; }
-
-    
+    char FORMAT()               { return format; }
+    std::bitset<32> MACHINE()   { return machine_code; } 
+    std::string INPUT()         { return input; }
+    virtual int* dec_inst()      { return NULL; }
+        
     const static int REG_LENGTH = 5;
     const static int OPCODE_LENGTH = 6;
 private:
-    char format;            // Set as either 'R', 'I', or 'J'
-    std::string pseudo_code;    // cleaned up MIPS instruction 
-    std::bitset<32> mach_code;  // 32 bit representation of the instruction
-    std::string user_input;     // the users input as typed
+    char format;            
+    std::string input;     
+    std::bitset<32> machine_code;  
 };
 
 std::ostream & operator<<(std::ostream &, Inst &);
