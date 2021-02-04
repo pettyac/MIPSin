@@ -32,22 +32,23 @@ decimal_form[] = array of fields in the above order.
 class IForm : public Inst
 {
 public:
+    IForm(std::string input, int opcode, int rt, int rs, int imm)
+        : Inst(input, 'I')
+    {
+        decimal_inst.push_back(opcode);
+        decimal_inst.push_back(rt);
+        decimal_inst.push_back(rs);
+        decimal_inst.push_back(imm);
+        decimal_inst.shrink_to_fit();
+           
+        std::string bin_rep;
+        bin_rep = std::bitset<OPCODE_LENGTH> (OPCODE()).to_string();
+        bin_rep += std::bitset<REG_LENGTH> (RT()).to_string();
+        bin_rep += std::bitset<REG_LENGTH> (RS()).to_string();
+        bin_rep += std::bitset<IMMEDIATE_LENGTH> (IMMEDIATE()).to_string();
 
-    IForm(std::string, int, RegFile &);
-    IForm(std::string, int, int, int, int);    
-    /* output for individual inst parts */
-    int OPCODE()    { return decimal_form[0]; }
-    int RS()        { return decimal_form[1]; }
-    int RT()        { return decimal_form[2]; }
-    int IMMEDIATE() { return decimal_form[3]; }
-
-    virtual int* dec_inst() { return decimal_form; }    
-    const static int IMMEDIATE_LENGTH = 16;
-
-private:
-    int decimal_form[4];
-    
+        set_machine_code(bin_rep);       
+    }
 };
-
 
 #endif 

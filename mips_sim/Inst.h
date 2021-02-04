@@ -18,32 +18,44 @@ machine_code- 32 bit representation of the instruction
 #define INST_H
 
 #include <bitset>
+#include <vector>
 
 class Inst
 {
 public:
-    
     Inst(std::string, char);
-    virtual ~Inst() {}
-    
-
     void set_machine_code(std::string);
     
     /* output for instruction members */
     char FORMAT()               { return format; }
     std::bitset<32> MACHINE()   { return machine_code; } 
     std::string INPUT()         { return input; }
-    virtual int* dec_inst()      { return NULL; }
-        
-    const static int REG_LENGTH = 5;
+    std::vector<int> DEC()      { return decimal_inst; }    
+   
+    int OPCODE()    { return decimal_inst[0]; }
+    int RS()        { return decimal_inst[1]; }
+    int RT()        { return decimal_inst[2]; }
+    int RD()        { return decimal_inst[3]; }
+    int IMMEDIATE() { return decimal_inst[3]; }
+    int SHAMT()     { return decimal_inst[4]; }
+    int FUNCT()     { return decimal_inst[5]; }
+   
+    
     const static int OPCODE_LENGTH = 6;
-private:
+    const static int REG_LENGTH = 5;
+    const static int SHAMT_LENGTH = 5;
+    const static int FUNCT_LENGTH = 6;
+    const static int IMMEDIATE_LENGTH = 16; 
+
+
+protected:
     char format;            
-    std::string input;     
-    std::bitset<32> machine_code;  
+    std::string input;
+    std::vector<int> decimal_inst;
+    std::bitset<32> machine_code;
 };
 
 std::ostream & operator<<(std::ostream &, Inst &);
-
+std::ostream & operator<<(std::ostream &, const std::vector<int> &);
 
 #endif

@@ -14,11 +14,10 @@
 *************************************************************************/
 
 mips::mips()
-    : _PC(0)
+    : pc(0)
 {
     assign_RFormat();
     assign_IFormat();
-    std::cout << "CONSTRUCT" << std::endl;
 }
 
 
@@ -68,17 +67,16 @@ std::string mips::find_inst(std::string &input)
 }
 
 
-int mips::fetch(int pc)
+int mips::fetch(int _pc)
 {
-    std::map<unsigned long int, Inst*>::iterator it = mem.find(pc);
+    std::map<unsigned long int, Inst*>::iterator it = mem.find(_pc);
     if (it != mem.end())
     {
-        _PC++;
-        int* x = mem[pc]->dec_inst();
-        std::cout << x << std::endl;
-        std::cout << *x << std::endl;
+        Inst* i = it->second;
+        std::cout << *(it->second) << std::endl;
+        pc++;
     }
-    
+
     return 0;
 
 }
@@ -178,7 +176,7 @@ void mips::input_to_IForm(std::string input, std::string &op)
 
     
     mem[PC()] = inst;
-    std::cout << PC() << " " << mem[PC()] << std::endl;
+    //std::cout << PC() << " " << mem[PC()] << std::endl;
 
 }
 
@@ -226,7 +224,7 @@ std::string cleanup(char *input, const int *MAX_BUF)
     pos = retval.find(",", pos + 1);
     if (pos != std::string::npos) { retval.insert(pos+1, " "); }
     
-    std::cout << retval << std::endl;
+    //std::cout << retval << std::endl;
 	return retval;
 }
 

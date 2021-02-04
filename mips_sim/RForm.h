@@ -21,15 +21,10 @@ SHAMT = shift amount
 FUNCT = function, selects specific variant of the op 
 
 decimal_form[] = array of fields in the above order.
-
 ********************************************************************/
-
 
 #ifndef RFORM_H
 #define RFORM_H
-
-
-
 
 #include <map>
 
@@ -39,25 +34,27 @@ decimal_form[] = array of fields in the above order.
 class RForm : public Inst
 {
 public:
-    RForm(std::string, int, RegFile &);
-    RForm(std::string, int, int, int, int);
-    
-    /* output for individual inst parts */
-    int OPCODE()    { return decimal_form[0]; }
-    int RS()        { return decimal_form[1]; }
-    int RT()        { return decimal_form[2]; }
-    int RD()        { return decimal_form[3]; }
-    int SHAMT()     { return decimal_form[4]; }
-    int FUNCT()     { return decimal_form[5]; }
+    RForm(std::string input, int funct, int rd, int rs, int rt)
+        : Inst(input, 'R')
+    {
+        decimal_inst.push_back(0);
+        decimal_inst.push_back(rs);
+        decimal_inst.push_back(rt);
+        decimal_inst.push_back(rd);
+        decimal_inst.push_back(0);
+        decimal_inst.push_back(funct);
+               
+        /* converts the integers into a binary rep of the inst */
+        std::string bin_rep;
+        bin_rep = std::bitset<OPCODE_LENGTH> (OPCODE()).to_string();
+        bin_rep += std::bitset<REG_LENGTH> (RS()).to_string();
+        bin_rep += std::bitset<REG_LENGTH> (RT()).to_string();
+        bin_rep += std::bitset<REG_LENGTH> (RD()).to_string();
+        bin_rep += std::bitset<SHAMT_LENGTH> (SHAMT()).to_string();
+        bin_rep += std::bitset<FUNCT_LENGTH> (FUNCT()).to_string();
 
-    virtual int* dec_inst() { return decimal_form; }
-    
-    const static int SHAMT_LENGTH = 5;
-    const static int FUNCT_LENGTH = 6;
-private:
-    int decimal_form[6];
-    
+        set_machine_code(bin_rep);
+    }
 };
-
 
 #endif 
