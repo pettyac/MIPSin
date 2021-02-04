@@ -35,7 +35,7 @@ public:
     void assign_RFormat();			// populates func maip
 	void assign_IFormat();			// populates opcode map
 
-    int PC() { return _PC; } 
+    int PC() { return pc; } 
     
     std::map<std::string, int> RFormat_map;     // map of R-form instructions. i.e., (beq, 4)
     std::map<std::string, int> IFormat_map;     // map of I-form instructions. i.e., (add, 32)
@@ -46,7 +46,7 @@ private:
    // RegFile r;
     std::map<unsigned long int, Inst*> mem;
     int reg[32];
-    int _PC;
+    int pc;
 };
 
 std::string cleanup(char [], const int*);
