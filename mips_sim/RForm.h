@@ -21,7 +21,6 @@ SHAMT = shift amount
 FUNCT = function, selects specific variant of the op 
 
 decimal_form[] = array of fields in the above order.
-
 ********************************************************************/
 
 #ifndef RFORM_H
@@ -57,6 +56,5 @@ public:
         set_machine_code(bin_rep);
     }
 };
-
 
 #endif 
