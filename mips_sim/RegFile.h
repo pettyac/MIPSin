@@ -17,7 +17,7 @@ public:
     
     const static int REGISTERS = 32;    // Number of registers
     const static int REG_LENGTH = 5;    // Bit length of register portion of MIPS Inst
-    unsigned int reg[REGISTERS];
+    int reg[REGISTERS];
 };
 
 std::ostream & operator<<(std::ostream &, RegFile &);

@@ -23,15 +23,19 @@ machine_code- 32 bit representation of the instruction
 class Inst
 {
 public:
+    const static int OPCODE_LENGTH = 6;
+    const static int REG_LENGTH = 5;
+    const static int SHAMT_LENGTH = 5;
+    const static int FUNCT_LENGTH = 6;
+    const static int IMMEDIATE_LENGTH = 16; 
+
     Inst(std::string, char);
-    void set_machine_code(std::string);
     
     /* output for instruction members */
     char FORMAT()               { return format; }
     std::bitset<32> MACHINE()   { return machine_code; } 
     std::string INPUT()         { return input; }
     std::vector<int> DEC()      { return decimal_inst; }    
-   
     int OPCODE()    { return decimal_inst[0]; }
     int RS()        { return decimal_inst[1]; }
     int RT()        { return decimal_inst[2]; }
@@ -39,14 +43,6 @@ public:
     int IMMEDIATE() { return decimal_inst[3]; }
     int SHAMT()     { return decimal_inst[4]; }
     int FUNCT()     { return decimal_inst[5]; }
-   
-    
-    const static int OPCODE_LENGTH = 6;
-    const static int REG_LENGTH = 5;
-    const static int SHAMT_LENGTH = 5;
-    const static int FUNCT_LENGTH = 6;
-    const static int IMMEDIATE_LENGTH = 16; 
-
 
 protected:
     char format;            

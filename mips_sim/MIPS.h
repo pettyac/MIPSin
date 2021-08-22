@@ -21,35 +21,44 @@ public:
     	
     // functions for interpreting input
 	
-    void parse_input(char [], const int*);
-	std::string find_inst(std::string &);
-	int fetch(int);
+    std::string parse_input(std::string);
+	std::string get_opcode(std::string &);
     void input_error();
 
-    bool isRFormat(std::string &);
-    bool isIFormat(std::string &);
+    bool is_RFormat(std::string &);
+    bool is_IFormat(std::string &);
     
-    void input_to_RForm(std::string, std::string &);
-    void input_to_IForm(std::string, std::string &);
+    Inst* input_to_RForm(std::string, std::string);
+    Inst* input_to_IForm(std::string, std::string);
     
+    Inst* create_inst(std::string &);
     void assign_RFormat();			// populates func maip
 	void assign_IFormat();			// populates opcode map
 
-    int PC() { return pc; } 
-    
+    unsigned int PC() { return pc; } 
+    void add_inst_to_mem(Inst *);
+    void execute_inst();
+    Inst* fetch_inst(unsigned int);
     std::map<std::string, int> RFormat_map;     // map of R-form instructions. i.e., (beq, 4)
     std::map<std::string, int> IFormat_map;     // map of I-form instructions. i.e., (add, 32)
-	   
-    Inst *inst;
-    
+	       
+    void add(Inst*);
+    void addi(Inst*);
+    void addiu(Inst*);
+    void addu(Inst*);
+    void sub(Inst*);
+    void subu(Inst*);
+    void mult(Inst*);
+    void multu(Inst*);
+
 private:
    // RegFile r;
-    std::map<unsigned long int, Inst*> mem;
+    std::map<unsigned int, Inst*> mem;
     int reg[32];
-    int pc;
+    unsigned int pc = 0;
 };
 
-std::string cleanup(char [], const int*);
+std::string cleanup(char []);
 
 
 
