@@ -21,6 +21,7 @@ SHAMT = shift amount
 FUNCT = function, selects specific variant of the op 
 
 decimal_form[] = array of fields in the above order.
+
 ********************************************************************/
 
 #ifndef RFORM_H
@@ -52,9 +53,9 @@ public:
         bin_rep += std::bitset<REG_LENGTH> (RD()).to_string();
         bin_rep += std::bitset<SHAMT_LENGTH> (SHAMT()).to_string();
         bin_rep += std::bitset<FUNCT_LENGTH> (FUNCT()).to_string();
-
-        set_machine_code(bin_rep);
+        machine_code = std::bitset<32>(bin_rep);
     }
 };
+
 
 #endif 

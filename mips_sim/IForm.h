@@ -46,9 +46,9 @@ public:
         bin_rep += std::bitset<REG_LENGTH> (RT()).to_string();
         bin_rep += std::bitset<REG_LENGTH> (RS()).to_string();
         bin_rep += std::bitset<IMMEDIATE_LENGTH> (IMMEDIATE()).to_string();
-
-        set_machine_code(bin_rep);       
+        machine_code = std::bitset<32>(bin_rep); 
     }
 };
+
 
 #endif 

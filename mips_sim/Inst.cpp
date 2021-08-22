@@ -11,10 +11,10 @@ Inst::Inst(std::string in, char f)
 
 std::ostream & operator<<(std::ostream & cout, Inst & inst)
 {
-    cout << " Instruction Format: " << inst.FORMAT() << std::endl;
-    cout << " Input: "              << inst.INPUT() << std::endl;
-    cout << " Instruction(MC): "    << inst.MACHINE() << std::endl;
-    cout << " Instruction(Dec): "   << inst.DEC() << std::endl;
+    cout << "Instruction Format: " << inst.FORMAT() << std::endl;
+    cout << "Input: "              << inst.INPUT() << std::endl;
+    cout << "Instruction(MC): "    << inst.MACHINE() << std::endl;
+    cout << "Instruction(Dec): "   << inst.DEC() << std::endl;
     return cout; 
 }
 
@@ -30,9 +30,4 @@ std::ostream & operator<<(std::ostream & cout, const std::vector<int> & d)
     cout << "]";
     
     return cout;
-}
-
-void Inst::set_machine_code(std::string in)
-{
-    machine_code = std::bitset<32>(in);
 }
